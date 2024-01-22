@@ -1,11 +1,9 @@
-import {
-  Button,
-} from '@chakra-ui/react'
+import Signup from './components/Signup'
 
 function App() {
 
   return (
-    <Button>Press me</Button>
+    <Signup />
   )
 }
 

@@ -3,7 +3,7 @@
 class DbConnect
 {
     private $server = "localhost";
-    private $port = ' 3308';
+    private $port = '3308';
     private $dbname = "rettid_db";
     private $user = "root";
     private $pass = "";
