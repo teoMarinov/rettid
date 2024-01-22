@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Input, VStack, Center, Button, Text } from "@chakra-ui/react";
+import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 import { useState } from "react";
 
 function Signup() {
@@ -173,6 +174,7 @@ function Signup() {
   return (
     <Center height={"100vh"}>
       <VStack width={"300px"}>
+      <Heading mb={2}>Sign up</Heading>
         <Input
           placeholder="Enter username"
           value={username}
@@ -265,7 +267,8 @@ function Signup() {
           }}
         />
         <Text color={"red"}>{errors["passwords don't match"]}</Text>
-        <Button onClick={handleSubmit}>Sign up</Button>
+        <Button mb={1} onClick={handleSubmit}>Sign up</Button>
+        <Link style={{color:"blueviolet"}} to="/login">Already have an account?</Link>
       </VStack>
     </Center>
   );
