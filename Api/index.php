@@ -24,4 +24,9 @@ switch ($method) {
             $username = json_decode(file_get_contents("php://input"), 1);
             check_username_exists($username);
         }
+        if ($path[3] === "users" && $path[4] === "check_email") {
+            require_once "./includes/checkEmailExists.inc.php";
+            $email = json_decode(file_get_contents("php://input"), 1);
+            check_email_exists($email);
+        }
 }

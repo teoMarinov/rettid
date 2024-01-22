@@ -69,7 +69,7 @@ function Signup() {
         console.error("Error!!!:", error.message);
       });
   };
-  const checkPasswords = () => {
+  const checkPassword = () => {
     if (
       password.length < 6 ||
       password.length > 32 ||
@@ -111,9 +111,6 @@ function Signup() {
         console.error("Error!!!:", error.message);
       });
   };
-
-
-
   const handleSubmit = async () => {
     const usernameExists = await usernameTaken();
     const emailExists = await emailTaken();
@@ -124,6 +121,7 @@ function Signup() {
       setErrors({ ...errors, "username taken": "" });
     }
     if (emailExists) {
+      console.log('mail exists!')
       setErrors({ ...errors, "email taken": "That email is taken!" });
       return;
     } else {
@@ -153,7 +151,7 @@ function Signup() {
     } else {
       setErrors({ ...errors, "invalid email": "" });
     }
-    if (checkPasswords()) {
+    if (checkPassword()) {
       setErrors({
         ...errors,
         "password requirements":
