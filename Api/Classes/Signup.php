@@ -20,9 +20,13 @@ class Signup extends DbConnect
         $query = "INSERT INTO users (username, nickname, psw, email) VALUES 
         (:username, :nickname, :psw, :email)";
         $stmt = parent::connect()->prepare($query);
+        $options = [
+            'cost' => 12
+        ];
+        $hashedPwd = password_hash($this->psw, PASSWORD_BCRYPT, $options);
         $stmt->bindParam(":username", $this->username);
         $stmt->bindParam(":nickname", $this->nickname);
-        $stmt->bindParam(":psw", $this->psw);
+        $stmt->bindParam(":psw", $hashedPwd);
         $stmt->bindParam(":email", $this->email);
         try {
             $stmt->execute();

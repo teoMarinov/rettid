@@ -3,7 +3,7 @@ import { Input, VStack, Center, Button, Text } from "@chakra-ui/react";
 import { useState } from "react";
 
 function Signup() {
-  const SPECIAL_CHARACTERS = /[!@#$%^&*`(),.?":{}|<>]/;
+  const SPECIAL_CHARACTERS = /[!@#$/%^-_|;:'=+&*`(),.?":{}|<>]/;
   const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -82,6 +82,7 @@ function Signup() {
     }
   };
   const signUp = () => {
+
     const form = {
       username,
       nickname,
@@ -118,8 +119,6 @@ function Signup() {
     if (usernameExists) {
       setErrors({ ...errors, "username taken": "That username is taken!" });
       return;
-    } else {
-      setErrors({ ...errors, "username taken": "" });
     }
     if (emailExists) {
       setErrors({ ...errors, "email taken": "That email is taken!" });
@@ -266,7 +265,7 @@ function Signup() {
           }}
         />
         <Text color={"red"}>{errors["passwords don't match"]}</Text>
-        <Button onClick={handleSubmit}>Submit</Button>
+        <Button onClick={handleSubmit}>Sign up</Button>
       </VStack>
     </Center>
   );
