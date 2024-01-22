@@ -8,7 +8,7 @@ class DbConnect
     private $user = "root";
     private $pass = "";
 
-    public function connect()
+    protected function connect()
     {
         try {
             $conn = new PDO("mysql:host=$this->server;port=$this->port;dbname=$this->dbname", $this->user, $this->pass);
