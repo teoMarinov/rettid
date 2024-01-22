@@ -10,7 +10,8 @@ $nickname = "";
 $password = "";
 $email = "";
 
- function signup( $username, $nickname, $password, $email ) {
-     $signup = new Signup($username, $nickname, $password, $email);
-     $signup->createNewUser();
-    }
+function signup($username, $nickname, $password, $email)
+{
+    $signup = new Signup($username, $nickname, $password, $email);
+    $signup->createNewUser();
+}

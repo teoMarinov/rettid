@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input, VStack, Center, Button } from "@chakra-ui/react";
 import { useState } from "react";
 
@@ -7,41 +8,97 @@ function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState({
+    "username taken": "",
+    "username too short": "",
+    "nickname too short": "",
+    "email taken": "",
+    "password requirements": "",
+    "passwords don't match": "",
+  });
 
-  const handleSubmit = () => {
-    const form = {
-      username,
-      nickname,
-      password,
-      email,
-    }
-
-    const url = 'http://localhost/rettid/Api/users/signup';
+  const usernameTaken = () => {
+    const url = "http://localhost/rettid/Api/users/check_username";
     const headers = new Headers({
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     });
-
     const requestOptions = {
-      method: 'POST',
+      method: "POST",
       headers: headers,
-      body: JSON.stringify(form),
+      body: JSON.stringify(username),
     };
 
     fetch(url, requestOptions)
-      .then(response => {
+      .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
         }
         return response.json();
       })
-      .then(data => {
-        console.log('Response:', data);
+      .then((result) => {
+        if (result.exists) {
+          console.log("taken");
+          setErrors({
+            ...errors,
+            "username taken": "That username already exists",
+          });
+        } else {
+          console.log("not taken");
+          setErrors({
+            ...errors,
+            "username taken": "",
+          });
+        }
       })
-      .catch(error => {
-        console.error('Error!!!:', error.message);
+      .catch((error) => {
+        console.error("Error!!!:", error.message);
       });
-  }
+  };
 
+  const checkForErrors = () => {
+    usernameTaken();
+  };
+
+  // const signUp = () => {
+  //   const form = {
+  //     username,
+  //     nickname,
+  //     password,
+  //     email,
+  //   };
+
+  //   const url = "http://localhost/rettid/Api/users/signup";
+
+  //   const headers = new Headers({
+  //     "Content-Type": "application/json",
+  //   });
+
+  //   const requestOptions = {
+  //     method: "POST",
+  //     headers: headers,
+  //     body: JSON.stringify(form),
+  //   };
+
+  //   fetch(url, requestOptions)
+  //     .then((response) => {
+  //       if (!response.ok) {
+  //         throw new Error(`HTTP error! Status: ${response.status}`);
+  //       }
+  //       return response.json();
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error!!!:", error.message);
+  //     });
+  // };
+
+  const handleSubmit = () => {
+    checkForErrors();
+    if (errors["username taken"]) {
+      alert("Taken");
+    }
+
+    // signUp();
+  };
 
   return (
     <Center height={"100vh"}>
@@ -50,6 +107,9 @@ function Signup() {
           placeholder="Enter username"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+          style={{
+            borderColor: errors && errors["username taken"] ? "red" : "none",
+          }}
         />
         <Input
           placeholder="Enter display name"

@@ -26,10 +26,10 @@ class Signup extends DbConnect
         $stmt->bindParam(":email", $this->email);
         try {
             $stmt->execute();
-            $respose = ['status' => 1, 'message' => 'User created successfully!'];
+            $response = ['status' => 1, 'message' => 'User created successfully!'];
         } catch (PDOException $e) {
-            $respose = ['status' => 0, 'message' => 'Failed to create user!' . $e];
+            $response = ['status' => 0, 'message' => 'Failed to create user!' . $e];
         }
-        echo json_encode($respose);
+        echo json_encode($response);
     }
 }
