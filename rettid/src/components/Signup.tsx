@@ -3,9 +3,9 @@ import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { signUp, usernameTaken, emailTaken } from "../servive/auth-service";
+import { SPECIAL_CHARACTERS, EMAIL_REGEX, MIN_NAME_LENGTH, MAX_NAME_LENGTH } from "../common/constants";
 
 function Signup() {
-  const SPECIAL_CHARACTERS = /[!@#$/%^-_|;:'=+&*`(),.?":{}|<>]/;
   const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -47,8 +47,8 @@ function Signup() {
       return;
     }
     if (
-      username.length < 4 ||
-      username.length > 16 ||
+      username.length < MIN_NAME_LENGTH ||
+      username.length > MAX_NAME_LENGTH ||
       SPECIAL_CHARACTERS.test(username)
     ) {
       setErrors({
@@ -59,8 +59,8 @@ function Signup() {
       return;
     }
     if (
-      nickname.length < 4 ||
-      nickname.length > 16 ||
+      nickname.length < MIN_NAME_LENGTH ||
+      nickname.length > MAX_NAME_LENGTH ||
       SPECIAL_CHARACTERS.test(nickname)
     ) {
       setErrors({
@@ -70,7 +70,7 @@ function Signup() {
       });
       return;
     }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    if (!EMAIL_REGEX.test(email)) {
       setErrors({ ...errors, "invalid email": "Invalid email" });
       return;
     }
