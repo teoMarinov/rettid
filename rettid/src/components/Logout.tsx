@@ -6,7 +6,7 @@ import { logout } from "../servive/auth-service";
 
 function Logout() {
   const nav = useNavigate();
-  const [userData, setUserData] = useContext(AuthContext);
+  const [, setUserData] = useContext(AuthContext);
   
   const pressHandler = async() => {
     setUserData(null);

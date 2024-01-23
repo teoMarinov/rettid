@@ -8,10 +8,10 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [userData, setUserData] = useContext(AuthContext);
+  const [, setUserData] = useContext(AuthContext);
   const nav = useNavigate()
  
-  const pressHandler = async () => {
+  const onLogin = async () => {
     const result = await login(username, password);
     if (!result.status) {
       setError("Username and password don't match");
@@ -20,9 +20,14 @@ function Login() {
     setUserData(result.data);
     nav("/")
   };
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === "Enter") {
+      onLogin();
+    }
+  };
 
   return (
-    <Center height={"100vh"}>
+    <Center height={"100vh"} onKeyDown={handleKeyDown}>
       <VStack width={"260px"}>
         <Heading mb={2}>Log in</Heading>
         <Input
@@ -37,7 +42,7 @@ function Login() {
           onChange={(e) => setPassword(e.target.value)}
         />
         <Text color={"red"}>{error}</Text>
-        <Button mb={1} onClick={pressHandler}>
+        <Button mb={1} onClick={onLogin}>
           Log in
         </Button>
         <Link style={{ color: "blueviolet" }} to="/signup">
