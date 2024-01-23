@@ -1,10 +1,12 @@
 import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+
 
   const login = async () => {
     const form = {
@@ -29,17 +31,23 @@ function Login() {
         return response.json();
       })
       .then((result) => {
-        return result
+        console.log(result);
+        return result;
       })
       .catch((error) => {
-        setError(error.message);
+        console.error(error.message);
       });
   };
 
   const pressHandler = async () => {
     const result = await login()
-
+    console.log(result)
   };
+  // if (!result.status) {
+  //   setError("Username and password don't match");
+  //   return
+  // }
+  // console.log(result.data);
 
   return (
     <Center height={"100vh"}>
@@ -60,6 +68,7 @@ function Login() {
         <Button mb={1} onClick={pressHandler}>
           Log in
         </Button>
+        <Link style={{color:"blueviolet"}} to="/signup">Don't have an account?</Link>
       </VStack>
     </Center>
   );

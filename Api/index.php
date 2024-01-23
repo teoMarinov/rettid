@@ -29,4 +29,11 @@ switch ($method) {
             $email = json_decode(file_get_contents("php://input"), 1);
             check_email_exists($email);
         }
+        if ($path[3] === 'users' && $path[4] === 'login') {
+            require_once "./includes/login.inc.php";
+            $data = json_decode(file_get_contents("php://input"), 1);
+            $username = $data["username"];
+            $password = $data["password"];
+            login($username, $password);
+        }
 }

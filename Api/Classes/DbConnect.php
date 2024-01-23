@@ -15,7 +15,7 @@ class DbConnect
             $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             return $conn;
         } catch (PDOException $e) {
-            echo "Database Error: " . $e->getMessage();
+            echo json_encode("Database Error: " . $e->getMessage());
         }
     }
 }

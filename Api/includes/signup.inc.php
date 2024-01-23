@@ -1,14 +1,7 @@
 <?php
 
-
 require_once __DIR__ . "/../Classes/DbConnect.php";
 require_once __DIR__ . "/../Classes/Signup.php";
-
-
-$username = "";
-$nickname = "";
-$password = "";
-$email = "";
 
 function signup($username, $nickname, $password, $email)
 {
