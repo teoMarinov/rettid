@@ -114,7 +114,7 @@ function Signup() {
         console.error("Error!!!:", error.message);
       });
   };
-  const handleSubmit = async () => {
+  const pressHandler = async () => {
     const usernameExists = await usernameTaken();
     const emailExists = await emailTaken();
     if (usernameExists) {
@@ -173,7 +173,7 @@ function Signup() {
 
   return (
     <Center height={"100vh"}>
-      <VStack width={"300px"}>
+      <VStack width={"260px"}>
       <Heading mb={2}>Sign up</Heading>
         <Input
           placeholder="Enter username"
@@ -267,7 +267,7 @@ function Signup() {
           }}
         />
         <Text color={"red"}>{errors["passwords don't match"]}</Text>
-        <Button mb={1} onClick={handleSubmit}>Sign up</Button>
+        <Button mb={1} onClick={pressHandler}>Sign up</Button>
         <Link style={{color:"blueviolet"}} to="/login">Already have an account?</Link>
       </VStack>
     </Center>
