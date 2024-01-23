@@ -1,9 +1,9 @@
-
+import Logout from "./Logout"
 
 function Home() {
   return (
     <>
-    Hello world! This is Home!
+   <Logout/>
     </>
   )
 }

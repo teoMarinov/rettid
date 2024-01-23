@@ -149,3 +149,25 @@ export const loginWithToken = async (token: string) => {
       console.error(error.message);
     });
 };
+
+export const logout = async (token: string | null) => {
+  const url = "http://localhost/rettid/Api/users/logout";
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(token),
+  };
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
+};

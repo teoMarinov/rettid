@@ -1,12 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
-import { useState, useContext } from "react";
+import { useState } from "react";
 import { signUp, usernameTaken, emailTaken } from "../servive/auth-service";
 import { SPECIAL_CHARACTERS, EMAIL_REGEX, MIN_NAME_LENGTH, MAX_NAME_LENGTH } from "../common/constants";
-import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 
 function Signup() {
+  const nav = useNavigate()
   const [username, setUsername] = useState("");
   const [nickname, setNickname] = useState("");
   const [email, setEmail] = useState("");
@@ -21,10 +22,6 @@ function Signup() {
     "password requirements": "",
     "passwords don't match": "",
   });
-
-  const [userData, setUserData] = useContext(AuthContext);
-
-  
  
   const checkPassword = () => {
     if (
@@ -92,8 +89,7 @@ function Signup() {
       });
       return;
     }
-    const data = await signUp(username, nickname, email, password);
-    setUserData(data);
+    nav("/login")
   };
 
   return (

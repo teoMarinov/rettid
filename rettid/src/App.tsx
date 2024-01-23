@@ -20,8 +20,8 @@ function App() {
           console.log('Login failed on App')
         })
     }
-  },[])
-  
+  },[loginToken]) 
+ 
 
   return (
     <AuthContext.Provider value={[userData, setUserData]}>
@@ -32,7 +32,7 @@ function App() {
           ) : (
             <>
               <Route path="/signup" element={<Signup />} />
-              <Route path="/" element={<Login />} />
+              <Route path="/login" element={<Login />} />
             </>
           )}
         </Routes>
