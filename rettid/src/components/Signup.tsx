@@ -89,6 +89,7 @@ function Signup() {
       });
       return;
     }
+    signUp(username, nickname, password, email);
     nav("/login")
   };
 

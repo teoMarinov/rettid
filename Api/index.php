@@ -43,4 +43,10 @@ switch ($method) {
             $token = $data;
             login_with_token($token);
         }
+        if ($path[3] === "users" && $path[4] === "logout") {
+            require_once "./includes/logout.inc.php";
+            $data = json_decode(file_get_contents("php://input"), 1);
+            $token = $data;
+            logout($token);
+        }
 }

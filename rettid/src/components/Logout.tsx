@@ -8,11 +8,9 @@ function Logout() {
   const nav = useNavigate();
   const [userData, setUserData] = useContext(AuthContext);
   
-  const pressHandler = () => {
+  const pressHandler = async() => {
     setUserData(null);
-    const token = sessionStorage.getItem('logged in');
-    logout(token);
-    localStorage.removeItem("logged in");
+    await logout();
     nav("login");
   };
   return (<Button onClick={pressHandler}>Logout</Button>);

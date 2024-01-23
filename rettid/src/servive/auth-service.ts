@@ -150,7 +150,8 @@ export const loginWithToken = async (token: string) => {
     });
 };
 
-export const logout = async (token: string | null) => {
+export const logout = async () => {
+  const token = localStorage.getItem("logged in");
   const url = "http://localhost/rettid/Api/users/logout";
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -170,4 +171,5 @@ export const logout = async (token: string | null) => {
     .catch((error) => {
       console.error(error.message);
     });
+    localStorage.removeItem("logged in");
 };
