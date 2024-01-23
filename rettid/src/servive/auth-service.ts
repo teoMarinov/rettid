@@ -23,12 +23,15 @@ export const signUp = (
     body: JSON.stringify(form),
   };
 
-  fetch(url, requestOptions)
+  return fetch(url, requestOptions)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
       return response.json();
+    })
+    .then((result) => {
+      return result
     })
     .catch((error) => {
       console.error("Error!!!:", error.message);

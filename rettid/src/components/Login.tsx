@@ -1,21 +1,24 @@
 import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import { login } from "../servive/auth-service";
+import { AuthContext } from "../context/AuthContext";
+import { useNavigate } from "react-router-dom";
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-
+  const [userData, setUserData] = useContext(AuthContext);
+  const nav = useNavigate()
  
-
   const pressHandler = async () => {
     const result = await login(username, password);
     if (!result.status) {
       setError("Username and password don't match");
       return
     }
-    console.log(result.data);
+    setUserData(result.data);
+    nav("/")
   };
 
   return (

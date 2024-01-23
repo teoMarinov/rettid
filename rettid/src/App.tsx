@@ -1,18 +1,30 @@
-import Signup from './components/Signup'
-import Login from './components/Login'
-import Home from './components/Home'
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom'
+import Signup from "./components/Signup";
+import Login from "./components/Login";
+import Home from "./components/Home";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { AuthContext } from "./context/AuthContext";
+import { useState } from "react";
 function App() {
+  const [userData, setUserData] = useState(null);
+
+  console.log(userData);
 
   return (
-    <BrowserRouter>
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/signup" element={<Signup />} />
-      <Route path="/login" element={<Login />} />
-    </Routes>
-    </BrowserRouter>
-  )
+    <AuthContext.Provider value={[userData, setUserData]}>
+      <BrowserRouter>
+        <Routes>
+          {userData ? (
+            <Route path="/" element={<Home />} />
+          ) : (
+            <>
+              <Route path="/signup" element={<Signup />} />
+              <Route path="/" element={<Login />} />
+            </>
+          )}
+        </Routes>
+      </BrowserRouter>
+    </AuthContext.Provider>
+  );
 }
 
-export default App
+export default App;
