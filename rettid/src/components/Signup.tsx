@@ -2,6 +2,7 @@
 import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { signUp, usernameTaken, emailTaken } from "../servive/auth-service";
 
 function Signup() {
   const SPECIAL_CHARACTERS = /[!@#$/%^-_|;:'=+&*`(),.?":{}|<>]/;
@@ -20,57 +21,8 @@ function Signup() {
     "passwords don't match": "",
   });
 
-  const usernameTaken = async () => {
-    const url = "http://localhost/rettid/Api/users/check_username";
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(username),
-    };
-
-    return fetch(url, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((result) => {
-        return result.exists;
-      })
-      .catch((error) => {
-        JSON;
-        console.error("Error!!!:", error.message);
-      });
-  };
-  const emailTaken = async () => {
-    const url = "http://localhost/rettid/Api/users/check_email";
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(email),
-    };
-    return fetch(url, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((result) => {
-        return result.exists;
-      })
-      .catch((error) => {
-        JSON;
-        console.error("Error!!!:", error.message);
-      });
-  };
+  
+ 
   const checkPassword = () => {
     if (
       password.length < 6 ||
@@ -82,41 +34,10 @@ function Signup() {
       return true;
     }
   };
-  const signUp = () => {
-
-    const form = {
-      username,
-      nickname,
-      password,
-      email,
-    };
-
-    const url = "http://localhost/rettid/Api/users/signup";
-
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
-
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(form),
-    };
-
-    fetch(url, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .catch((error) => {
-        console.error("Error!!!:", error.message);
-      });
-  };
+ 
   const pressHandler = async () => {
-    const usernameExists = await usernameTaken();
-    const emailExists = await emailTaken();
+    const usernameExists = await usernameTaken(username);
+    const emailExists = await emailTaken(email);
     if (usernameExists) {
       setErrors({ ...errors, "username taken": "That username is taken!" });
       return;
@@ -168,7 +89,7 @@ function Signup() {
       });
       return;
     }
-    signUp();
+    signUp(username, nickname, email, password);
   };
 
   return (
