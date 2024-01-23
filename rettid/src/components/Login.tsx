@@ -7,13 +7,11 @@ function Login() {
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
 
-
   const login = async () => {
     const form = {
       username,
       password,
     };
-
     const url = "http://localhost/rettid/Api/users/login";
     const headers = new Headers({
       "Content-Type": "application/json",
@@ -23,7 +21,7 @@ function Login() {
       headers: headers,
       body: JSON.stringify(form),
     };
-    fetch(url, requestOptions)
+   return fetch(url, requestOptions)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
@@ -31,7 +29,6 @@ function Login() {
         return response.json();
       })
       .then((result) => {
-        console.log(result);
         return result;
       })
       .catch((error) => {
@@ -40,14 +37,13 @@ function Login() {
   };
 
   const pressHandler = async () => {
-    const result = await login()
-    console.log(result)
+    const result = await login();
+    if (!result.status) {
+      setError("Username and password don't match");
+      return
+    }
+    console.log(result.data);
   };
-  // if (!result.status) {
-  //   setError("Username and password don't match");
-  //   return
-  // }
-  // console.log(result.data);
 
   return (
     <Center height={"100vh"}>
@@ -68,7 +64,9 @@ function Login() {
         <Button mb={1} onClick={pressHandler}>
           Log in
         </Button>
-        <Link style={{color:"blueviolet"}} to="/signup">Don't have an account?</Link>
+        <Link style={{ color: "blueviolet" }} to="/signup">
+          Don't have an account?
+        </Link>
       </VStack>
     </Center>
   );
