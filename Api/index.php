@@ -34,6 +34,13 @@ switch ($method) {
             $data = json_decode(file_get_contents("php://input"), 1);
             $username = $data["username"];
             $password = $data["password"];
-            login($username, $password);
+            $token = $data["token"];
+            login($username, $password, $token);
+        }
+        if ($path[3] === 'users' && $path[4] === 'tokenLogin') {
+            require_once "./includes/loginWithToken.inc.php";
+            $data = json_decode(file_get_contents("php://input"), 1);
+            $token = $data;
+            login_with_token($token);
         }
 }

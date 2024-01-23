@@ -3,11 +3,25 @@ import Login from "./components/Login";
 import Home from "./components/Home";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthContext } from "./context/AuthContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { loginWithToken } from "./servive/auth-service";
 function App() {
   const [userData, setUserData] = useState(null);
 
-  console.log(userData);
+  const loginToken = localStorage.getItem('logged in')
+  
+  useEffect(() => {
+    if (loginToken) {
+      loginWithToken(loginToken)
+     .then((res) => {
+          setUserData(res.data)
+        })
+     .catch(() => {
+          console.log('Login failed on App')
+        })
+    }
+  },[])
+  
 
   return (
     <AuthContext.Provider value={[userData, setUserData]}>

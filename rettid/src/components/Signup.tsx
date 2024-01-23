@@ -22,7 +22,7 @@ function Signup() {
     "passwords don't match": "",
   });
 
-  const [setUserData] = useContext(AuthContext);
+  const [userData, setUserData] = useContext(AuthContext);
 
   
  

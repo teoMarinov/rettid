@@ -1,4 +1,6 @@
-export const signUp = (
+import { generateRandomToken } from "../untils/generateToken";
+
+export const signUp = async (
   username: string,
   nickname: string,
   password: string,
@@ -31,7 +33,7 @@ export const signUp = (
       return response.json();
     })
     .then((result) => {
-      return result
+      return result;
     })
     .catch((error) => {
       console.error("Error!!!:", error.message);
@@ -91,31 +93,59 @@ export const emailTaken = async (email: string) => {
     });
 };
 
-export const login = async (username: string, password:  string) => {
-    const form = {
-      username,
-      password,
-    };
-    const url = "http://localhost/rettid/Api/users/login";
-    const headers = new Headers({
-      "Content-Type": "application/json",
-    });
-    const requestOptions = {
-      method: "POST",
-      headers: headers,
-      body: JSON.stringify(form),
-    };
-   return fetch(url, requestOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then((result) => {
-        return result;
-      })
-      .catch((error) => {
-        console.error(error.message);
-      });
+export const login = async (username: string, password: string) => {
+  const token = generateRandomToken(16);
+  localStorage.setItem("logged in", token);
+  const form = {
+    username,
+    password,
+    token,
   };
+  const url = "http://localhost/rettid/Api/users/login";
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(form),
+  };
+  return fetch(url, requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
+};
+
+export const loginWithToken = async (token: string) => {
+  const url = "http://localhost/rettid/Api/users/tokenLogin";
+  const headers = new Headers({
+    "Content-Type": "application/json",
+  });
+  const requestOptions = {
+    method: "POST",
+    headers: headers,
+    body: JSON.stringify(token),
+  };
+  return fetch(url, requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((result) => {
+      return result;
+    })
+    .catch((error) => {
+      console.error(error.message);
+    });
+};

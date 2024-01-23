@@ -3,14 +3,14 @@
 class Login extends DbConnect
 {
     private $username;
-    private $nickname;
     private $psw;
-    private $email;
+    private $token;
 
-    public function __construct($username, $psw)
+    public function __construct($username, $psw, $token)
     {
         $this->username = $username;
         $this->psw = $psw;
+        $this->token = $token;
     }
 
     private function checkPassword()
@@ -30,6 +30,14 @@ class Login extends DbConnect
         } else {
             return false;
         }
+    }
+    private function setToken()
+    {
+        $query = 'UPDATE users SET token = :token WHERE username = :username';
+        $stmt = parent::connect()->prepare($query);
+        $stmt->bindParam(':token', $this->token);
+        $stmt->bindParam(":username", $this->username);
+        $stmt->execute();
     }
     public function loginUser()
     {
@@ -51,6 +59,7 @@ class Login extends DbConnect
             $stmt->execute();
             $data = $stmt->fetch(PDO::FETCH_ASSOC);
             $response = ['status' => 1, 'data' => $data];
+            $this->setToken();
         } else {
             $response = ['status' => 0];
         }
