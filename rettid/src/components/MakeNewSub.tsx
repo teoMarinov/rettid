@@ -1,9 +1,5 @@
 import {
-  Heading,
   Button,
-  VStack,
-  Center,
-  HStack,
   Text,
   Input,
   Modal,
@@ -28,9 +24,14 @@ function MakeNewSub() {
     const [error, setError] = useState("")
     const pressHandler = async() => {
     if (!user) nav("/login");
+    if (name.length < 4 || name.length > 48) {
+        setError("Name must be between 4 and 48 characters!")
+        return;
+    }
    const submit = await submiteNewSub(name, user.username);
    if (submit.status == 0) return setError(submit.message);
-   nav("/");
+   console.log("🚀 ~ pressHandler ~ submit:", submit)
+  //  nav("/");
   };
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (

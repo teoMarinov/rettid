@@ -1,7 +1,7 @@
-export const submiteNewSub = async(title: string, username: string) => {
+export const submiteNewSub = async(title: string, creator: string) => {
     const data = {
         title,
-        username
+        creator
     }
   const url = "http://localhost/rettid/Api/sub/create";
   const headers = new Headers({
