@@ -56,4 +56,9 @@ switch ($method) {
             $creator = $data["creator"];
             make_new_sub($title, $creator);
         }
+        case "GET":
+            if ($path[3] === "sub" && $path[4] === 'list') {
+                require_once "./includes/getAllSubsNames.inc.php";
+                get_all_subs_names();
+            }
 }

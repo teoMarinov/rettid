@@ -6,6 +6,8 @@ import { AuthContext } from "./context/AuthContext";
 import { useState, useEffect } from "react";
 import { loginWithToken } from "./servive/auth-service";
 import MakeNewSub from "./components/MakeNewSub";
+import ListAllSubs from "./components/ListAllSubs";
+import SubView from "./components/SubView";
 function App() {
   const [userData, setUserData] = useState(null);
 
@@ -23,6 +25,8 @@ function App() {
     }
   }, [loginToken]);
 
+ 
+
   return (
     <AuthContext.Provider value={[userData, setUserData]}>
       <BrowserRouter>
@@ -31,6 +35,8 @@ function App() {
             <>
               <Route path="/" element={<Home />} />
               <Route path="creatSub" element={<MakeNewSub />} />
+              <Route path="allSubs" element={<ListAllSubs />} />
+              <Route path="/:subTitle" element={<SubView />} />
             </>
           ) : (
             <>

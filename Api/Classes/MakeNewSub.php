@@ -39,6 +39,5 @@ class MakeNewSub extends DbConnect
             $response = ['status' => 1,'message' => 'Sub created successfully!'];
         }
         echo json_encode($response);
-
     }
 }
