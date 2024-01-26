@@ -34,7 +34,7 @@ function App() {
           {userData ? (
             <>
               <Route path="/" element={<Home />} />
-              <Route path="/creatSub" element={<MakeNewSub />} />
+              <Route path="/createSub" element={<MakeNewSub />} />
               <Route path="/allSubs" element={<ListAllSubs />} />
               <Route path="/:subTitle" element={<SubView />} />
             </>

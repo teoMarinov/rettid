@@ -15,8 +15,8 @@ function ListAllSubs() {
     <div>
       All subs
       <Button onClick={() => console.log(data)}>Click</Button>
-      {data.map((name: {title: string}) => (
-        <Text key={name.title} onClick={() => pressHandler(name.title)}>{name.title}</Text>
+      {data.map((name: string) => (
+        <Text key={name} onClick={() => pressHandler(name)}>{name.replace(/_/, " ")}</Text>
       ))}
     </div>
   );

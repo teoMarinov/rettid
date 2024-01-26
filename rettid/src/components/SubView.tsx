@@ -9,6 +9,8 @@ export default function SubView() {
 
   const subName = useLocation().pathname.split("/")[1];
 
+  const normalizedName = subName.replace(/_/g, " ");
+  
   useEffect(() => {
     getSubInfo(subName)
     .then(result => setData(result.data))
@@ -17,7 +19,7 @@ export default function SubView() {
 
     return (
       <div>
-       {subName}
+       {normalizedName}
        <Button onClick={() => console.log(data)}>Info</Button>
       </div>
     );

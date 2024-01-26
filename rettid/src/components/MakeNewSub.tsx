@@ -16,6 +16,7 @@ import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../context/AuthContext";
 import { submiteNewSub } from "../untils/submitNewSub";
+import { SPECIAL_CHARACTERS } from "../common/constants";
 
 function MakeNewSub() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -24,37 +25,31 @@ function MakeNewSub() {
   const [name, setName] = useState("");
   const [error, setError] = useState("");
 
+  const normalizedName = (str: string) => {
+    return str.replace(/\s/g, "_");
+  };
 
   const pressHandler = async () => {
     if (!user) {
       nav("/login");
       return;
     }
-  
+    if (SPECIAL_CHARACTERS.test(name))
+      return setError("Name cannot include special characters");
     if (name.length < 4 || name.length > 48) {
       setError("Name must be between 4 and 48 characters!");
       return;
     }
-  
-    try {
-      const submit = await submiteNewSub(name, user.username);
-  
-      if (submit.status === 0) {
-        setError(submit.message);
-      } else if (submit.status === 1) {
-        // Handle success case
-        nav("/allSubs");
-      } else {
-        // Handle unexpected status
-        setError("Unexpected status: " + submit.status);
-      }
-    } catch (error) {
-      // Handle fetch or other errors
-      console.error("Error during submission:", error.message);
-      setError("Error during submission. Please try again.");
+
+    const submit = await submiteNewSub(normalizedName(name), user.username);
+
+    if (submit.status === 0) {
+      return;
+      setError(submit.message);
     }
+    nav("/allSubs");
   };
-  
+
   return (
     <>
       <Button onClick={onOpen}>Open Modal</Button>

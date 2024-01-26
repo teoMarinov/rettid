@@ -1,16 +1,14 @@
 import Logout from "./Logout"
 import { Button } from "@chakra-ui/react"
 import { useNavigate } from "react-router-dom"
-
+import MakeNewSub from "./MakeNewSub";
 function Home() {
   const nav = useNavigate();
-const newSub = () => {
-  nav("creatSub");
-}
+
   return (
     <>
    <Logout/>
-   <Button onClick={newSub}>NewSub</Button>
+   <MakeNewSub />
    <Button onClick={() => nav("/allSubs")}>list</Button>
     </>
   )
