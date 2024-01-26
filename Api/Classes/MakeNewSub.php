@@ -1,14 +1,19 @@
 <?php
 
+
 class MakeNewSub extends DbConnect
 {
     private $title;
     private $creator;
+    private $followSub;
+    private $setMod;
 
     public function __construct($title, $creator)
     {
         $this->title = $title;
         $this->creator = $creator;
+        $this -> followSub = new FollowSub($title, $creator);
+        $this -> setMod = new SetSubMod($title, $creator);
     }
 
     private function titleExists()
@@ -36,6 +41,8 @@ class MakeNewSub extends DbConnect
             $response = ['status' => 0, 'message' => "Sub with this name already exists"];
         } else {
             $stmt->execute();
+            $this->followSub->followSub();
+            $this->setMod->setSubMod();
             $response = ['status' => 1,'message' => 'Sub created successfully!'];
         }
         echo json_encode($response);

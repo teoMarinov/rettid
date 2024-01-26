@@ -11,6 +11,7 @@ const newSub = () => {
     <>
    <Logout/>
    <Button onClick={newSub}>NewSub</Button>
+   <Button onClick={() => nav("/allSubs")}>list</Button>
     </>
   )
 }

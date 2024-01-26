@@ -56,9 +56,15 @@ switch ($method) {
             $creator = $data["creator"];
             make_new_sub($title, $creator);
         }
-        case "GET":
-            if ($path[3] === "sub" && $path[4] === 'list') {
-                require_once "./includes/getAllSubsNames.inc.php";
-                get_all_subs_names();
-            }
+    case "GET":
+        if ($path[3] === "sub" && $path[4] === 'list') {
+            require_once "./includes/getAllSubsNames.inc.php";
+             get_all_subs_names();
+
+        }
+        if ($path[3] === "sub" && $path[4] === 'getSub') {
+            require_once "./includes/getSubInfo.inc.php";
+            $title = explode(':', $path[5])[1];
+            get_sub_info($title);
+        }
 }

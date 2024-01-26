@@ -34,14 +34,15 @@ function App() {
           {userData ? (
             <>
               <Route path="/" element={<Home />} />
-              <Route path="creatSub" element={<MakeNewSub />} />
-              <Route path="allSubs" element={<ListAllSubs />} />
+              <Route path="/creatSub" element={<MakeNewSub />} />
+              <Route path="/allSubs" element={<ListAllSubs />} />
               <Route path="/:subTitle" element={<SubView />} />
             </>
           ) : (
             <>
               <Route path="/signup" element={<Signup />} />
               <Route path="/login" element={<Login />} />
+              <Route path="/" element={<Login />} />
             </>
           )}
         </Routes>
