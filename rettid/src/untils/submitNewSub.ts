@@ -1,8 +1,13 @@
-export const submiteNewSub = async(title: string, creator: string) => {
-    const data = {
-        title,
-        creator
-    }
+export const submiteNewSub = async (
+  displayName: string,
+  title: string,
+  creator: string
+) => {
+  const data = {
+    displayName,
+    title,
+    creator,
+  };
   const url = "http://localhost/rettid/Api/sub/create";
   const headers = new Headers({
     "Content-Type": "application/json",
@@ -12,7 +17,7 @@ export const submiteNewSub = async(title: string, creator: string) => {
     headers: headers,
     body: JSON.stringify(data),
   };
- return fetch(url, requestOptions)
+  return fetch(url, requestOptions)
     .then((response) => {
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);
@@ -20,7 +25,7 @@ export const submiteNewSub = async(title: string, creator: string) => {
       return response.json();
     })
     .then((response) => {
-        return response;
+      return response;
     })
     .catch((error) => {
       console.error(error.message);

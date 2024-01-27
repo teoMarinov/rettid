@@ -22,11 +22,13 @@ function MakeNewSub() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [user] = useContext(AuthContext);
   const nav = useNavigate();
-  const [name, setName] = useState("");
+  const [displayName, setDisplayName] = useState("");
+  const [title, setTitle] = useState("");
   const [error, setError] = useState("");
 
-  const normalizedName = (str: string) => {
-    return str.replace(/\s/g, "_");
+  const handleInput = (input: string) => {
+    setDisplayName(input);
+    setTitle(input.replace(/\s/g, ""));
   };
 
   const pressHandler = async () => {
@@ -34,18 +36,18 @@ function MakeNewSub() {
       nav("/login");
       return;
     }
-    if (SPECIAL_CHARACTERS.test(name))
+    if (SPECIAL_CHARACTERS.test(displayName))
       return setError("Name cannot include special characters");
-    if (name.length < 4 || name.length > 48) {
+    if (displayName.length < 4 || displayName.length > 48) {
       setError("Name must be between 4 and 48 characters!");
       return;
     }
 
-    const submit = await submiteNewSub(normalizedName(name), user.username);
+    const submit = await submiteNewSub(displayName, title, user.username);
 
     if (submit.status === 0) {
-      return;
       setError(submit.message);
+      return;
     }
     nav("/allSubs");
   };
@@ -63,16 +65,16 @@ function MakeNewSub() {
             <Box mt={6}>
               <Input
                 placeholder="Enter sub name"
-                value={name}
+                value={displayName}
                 onChange={(e) => {
                   setError("");
-                  setName(e.target.value);
+                  handleInput(e.target.value);
                 }}
               />
               <Text color={"red"}>{error}</Text>
             </Box>
             <Text fontSize={17} mt={10}>
-              r/{name}
+              r/{title}
             </Text>
           </ModalBody>
           <ModalFooter justifyContent={"center"}>

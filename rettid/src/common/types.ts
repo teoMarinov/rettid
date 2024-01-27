@@ -25,7 +25,10 @@ export type Post = {
 export type Sub = {
   created_at: string;
   sub_ownder: string;
-  titles: string;
+  title: string;
+  display_name: string;
+  icon: null;
+  banner: null
 };
 
 export type SubRettidData = {

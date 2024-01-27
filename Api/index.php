@@ -52,9 +52,10 @@ switch ($method) {
         if ($path[3] === "sub" && $path[4] === "create") {
             require_once "./includes/makeNewSub.inc.php";
             $data = json_decode(file_get_contents("php://input"), 1);
+            $display_name = $data['displayName'];
             $title = $data["title"];
             $creator = $data["creator"];
-            make_new_sub($title, $creator);
+            make_new_sub($display_name, $title, $creator);
         }
     case "GET":
         if ($path[3] === "sub" && $path[4] === 'list') {
