@@ -11,9 +11,9 @@ export type User = {
 };
 
 export type Post = {
-  comment: number;
-  conter: string;
-  create_ad: string;
+  comments: number;
+  content: string;
+  created_at: string;
   created_by: string;
   likes: number;
   dislikes: number;
