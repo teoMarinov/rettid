@@ -5,7 +5,6 @@ import { useState } from "react";
 import { signUp, usernameTaken, emailTaken } from "../servive/auth-service";
 import { SPECIAL_CHARACTERS, EMAIL_REGEX, MIN_NAME_LENGTH, MAX_NAME_LENGTH } from "../common/constants";
 import { useNavigate } from "react-router-dom";
-
 function Signup() {
   const nav = useNavigate()
   const [username, setUsername] = useState("");

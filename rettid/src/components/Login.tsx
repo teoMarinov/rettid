@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Input, VStack, Center, Button, Text, Heading } from "@chakra-ui/react";
 import { useState, useContext } from "react";
 import { Link } from "react-router-dom";
@@ -8,7 +9,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
-  const [, setUserData] = useContext(AuthContext);
+  const [, setUserData] = useContext<any>(AuthContext);
   const nav = useNavigate()
  
   const onLogin = async () => {

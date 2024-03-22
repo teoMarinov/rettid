@@ -1,5 +1,6 @@
 import { generateRandomToken } from "../untils/generateToken";
 
+
 export const signUp = async (
   username: string,
   nickname: string,
@@ -33,7 +34,7 @@ export const signUp = async (
       return response.json();
     })
     .then((result) => {
-      return result;
+      return result; 
     })
     .catch((error) => {
       console.error("Error!!!:", error.message);

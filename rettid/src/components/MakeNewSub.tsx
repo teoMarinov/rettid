@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   Button,
   Text,
@@ -18,9 +19,10 @@ import { AuthContext } from "../context/AuthContext";
 import { submiteNewSub } from "../untils/submitNewSub";
 import { SPECIAL_CHARACTERS } from "../common/constants";
 
+
 function MakeNewSub() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [user] = useContext(AuthContext);
+  const [user] = useContext<any>(AuthContext);
   const nav = useNavigate();
   const [displayName, setDisplayName] = useState("");
   const [title, setTitle] = useState("");
@@ -33,7 +35,6 @@ function MakeNewSub() {
 
   const pressHandler = async () => {
     if (!user) {
-      nav("/login");
       return;
     }
     if (SPECIAL_CHARACTERS.test(displayName))
